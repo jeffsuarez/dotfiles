@@ -1,8 +1,13 @@
+[init]
+  templatedir = ~/.git_template
 [push]
   default = current
 [format]
   pretty = %Cblue%h%Creset %Cgreen[%ar]%Creset (%an) %s
 [alias]
+  aa = add --all
+  ap = add --patch
+  ca = commit --amend
   co = checkout
   st = status
   ci = commit -v
@@ -24,13 +29,15 @@
   sync = !legit sync \"$@\"
   publish = !legit publish \"$@\"
   graft = !legit graft \"$@\"
-  push = push -u
+  co-pr = !sh -c 'git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1' -
+  ctags = "!sh -c '[ -f .git/hooks/ctags ] || git init; .git/hooks/ctags' git-ctags"
+  pr = !gh pull-request
+  st = status
+  up = !git fetch origin && git rebase origin/master
 [core]
   editor = subl -w
-  excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
   autocrlf = input
-[credential]
-  helper = osxkeychain
 [help]
   autocorrect = 1
 [color]
@@ -39,5 +46,13 @@
   status = auto
   ui = true
 [user]
-  name = Jeff Suarez
-  email = jeffsuarez@gmail.com
+	email = jeffsuarez@gmail.com
+	name = Jeff Suarez
+[merge]
+  ff = only
+[commit]
+  template = ~/.gitmessage
+[fetch]
+  prune = true
+[include]
+  path = ~/.gitconfig.local
