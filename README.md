@@ -1,4 +1,4 @@
-jeffsuarez dotfiles (based on thoughtbot dotfiles)
+jeffsuarez dotfiles
 ===================
 
 Requirements
