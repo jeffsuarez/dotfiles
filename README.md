@@ -1,4 +1,4 @@
-thoughtbot dotfiles
+jeffsuarez dotfiles (based on thoughtbot dotfiles)
 ===================
 
 Requirements
@@ -11,9 +11,9 @@ Set zsh as your login shell.
 Install
 -------
 
-First, [fork this repo](/thoughtbot/dotfiles#fork_box) on Github.
+First, [fork this repo](/jeffsuarez/dotfiles#fork_box) on Github.
 
-Then, clone your Github fork onto your laptop and install it:
+Then, clone your Github fork onto your machine and install it:
 
     git clone git@github.com:your-github-name/dotfiles.git
     cd dotfiles
@@ -25,25 +25,23 @@ will copy that file over instead of symlinking it, and it will leave
 everything above that line in your local config intact.
 
 You can safely run `./install.sh` multiple times to update.
-For additional vim plugins add to the array in `install_bundles.sh` file.
 
-    $ mkdir vim/bundle
-    $ ./install_bundles.sh
+
 Why fork?
 ---------
 
 You should be able to experiment with your own dotfiles, save them in version
-control, and still get updates from `thoughtbot/dotfiles`.
+control, and still get updates from `jeffsuarez/dotfiles`.
 
 The `master` branch is for your customizations and the `upstream` branch is for
-thoughtbot's updates.
+jeff's updates.
 
 Set up the upstream branch
 --------------------------
 
 You only have to do this once:
 
-    git remote add upstream git@github.com:thoughtbot/dotfiles.git
+    git remote add upstream git@github.com:jeffsuarez/dotfiles.git
     git fetch upstream
     git checkout -b upstream upstream/master
 
@@ -56,8 +54,8 @@ THIS LINE."
 For example, the top of your `~/.gitconfig` might look like this:
 
     [user]
-      name = Joe Ferris
-      email = jferris@thoughtbot.com
+      name = Bob Smith
+      email = bsmith@example.com
 
     # DO NOT EDIT BELOW THIS LINE
 
@@ -67,14 +65,14 @@ For example, the top of your `~/.gitconfig` might look like this:
 The top of your `~/.zlogin` might look like this:
 
     # RVM
-    [[ -s '/Users/croaky/.rvm/scripts/rvm' ]] && source '/Users/croaky/.rvm/scripts/rvm'
+    [[ -s '/Users/ball/.rvm/scripts/rvm' ]] && source '/Users/ball/.rvm/scripts/rvm'
 
     # DO NOT EDIT BELOW THIS LINE
 
     # recommended by brew doctor
     export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-Get thoughtbot's updates
+Get jeff's updates
 ------------------------
 
 Each time you want to include thoughtbot's changes:
@@ -84,15 +82,10 @@ Each time you want to include thoughtbot's changes:
     git checkout master
     git rebase upstream
 
-Credits
+
+Notes
 -------
 
-Thank you, [contributors](/thoughtbot/dotfiles/graphs/contributors)!
+Dotfiles is maintained by Jeff Suarez and is based on the dotfiles maintained by [thoughtbot](https://github.com/thoughtbot/dotfiles).
 
-![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
-
-Dotfiles is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-Dotfiles is © 2009-2012 thoughtbot, inc. It is free software and may be
-redistributed under the terms specified in the MIT-LICENSE file.
+This is free software and may be redistributed under the terms specified in the MIT-LICENSE file.
