@@ -12,11 +12,6 @@ alias -g M='| less'
 alias -g L='| wc -l'
 alias -g ONE="| awk '{ print \$1}'"
 
-# git
-alias gco="git checkout"
-alias gcm="git commit -m"
-alias gca="git commit -am"
-
 # Ruby
 alias help-strftime='ruby ~/bin/help-strftime.rb'
 
@@ -47,13 +42,6 @@ alias pmsdb="python manage.py syncdb"
 alias pmmm="python manage.py makemigrations"
 alias pmsm="python manage.py sqlmigrate"
 alias pmm="python manage.py migrate"
-
-# SSH
-alias sshapp1='ssh -l deploy app01.c45739.blueboxgrid.com'
-alias sshapp2='ssh -l deploy app02.c45739.blueboxgrid.com'
-alias sshdb1='ssh -l deploy ds922.blueboxgrid.com'
-alias sshdb2='ssh -l deploy ds931.blueboxgrid.com'
-alias sshstg='ssh -l deploy stage01.c45739.blueboxgrid.com'
 
 alias rails-clean-log='rails s | grep -v asset | grep -v remember_token | grep -v Rendered | grep -e .'
 

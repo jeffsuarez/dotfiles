@@ -1,3 +1,6 @@
+fpath=($fpath $HOME/.zsh/func ~/.zsh/completion)
+typeset -U fpath
+
 # use subl as the visual editor
 export VISUAL=subl
 export EDITOR=$VISUAL

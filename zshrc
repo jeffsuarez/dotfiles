@@ -1,5 +1,8 @@
-# load our own completion functions
-fpath=(~/.zsh/completion $fpath)
+# modify the prompt to contain git branch name if applicable
+setopt promptsubst
+autoload -U promptinit
+promptinit
+prompt hrw
 
 # completion
 autoload -U compinit
@@ -114,12 +117,6 @@ setopt auto_cd
 # look for ey config in project dirs
 export EYRC=./.eyrc
 export CLICOLOR=cons25
-
-# modify the prompt to contain git branch name if applicable
-setopt promptsubst
-autoload -U promptinit
-promptinit
-prompt hrw
 
 ctags=/usr/local/bin/ctags
 
