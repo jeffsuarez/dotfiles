@@ -49,7 +49,6 @@
 	email = jeffsuarez@gmail.com
 	name = Jeff Suarez
 [merge]
-  ff = only
 [commit]
   template = ~/.gitmessage
 [fetch]
