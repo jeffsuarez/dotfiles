@@ -4,35 +4,15 @@ alias tlf="tail -f"
 alias ln='ln -v'
 alias mkdir='mkdir -p'
 alias ...='../..'
-alias l='ls'
-alias ll='ls -al'
-alias lh='ls -Alh'
-alias -g G='| grep'
+alias l='ls --color=auto'
+alias ll='ls -al --color=auto'
+alias lh='ls -Alh --color=auto'
+alias -g G='| grep --color=auto'
 alias -g M='| less'
 alias -g L='| wc -l'
 alias -g ONE="| awk '{ print \$1}'"
 
-# Ruby
-alias help-strftime='ruby ~/bin/help-strftime.rb'
-
-# Bundler
-alias b="bundle"
-alias be="bundle exec"
-alias bake="bundle exec rake"
-alias s="bundle exec rspec"
-alias cuc="bundle exec cucumber"
-
-# Rubygems
-alias gi="gem install"
-alias giv="gem install -v"
-
-# Rails
-alias migrate="bundle exec rake db:migrate db:test:prepare"
-alias seed="bundle exec rake db:seed"
-alias remigrate="bundle exec rake db:migrate db:migrate:redo db:schema:dump db:test:prepare"
-alias remongrate="bundle exec rake mongoid:migrate mongoid:migrate:redo"
-
-# Python
+# Django
 alias pm="python manage.py"
 alias pms="python manage.py shell"
 alias pmrs="python manage.py runserver"
@@ -43,8 +23,18 @@ alias pmmm="python manage.py makemigrations"
 alias pmsm="python manage.py sqlmigrate"
 alias pmm="python manage.py migrate"
 
-alias rails-clean-log='rails s | grep -v asset | grep -v remember_token | grep -v Rendered | grep -e .'
-
 alias chrome="open /Applications/Google\ Chrome.app/"
 
-alias fore="foreman start --env .env"
+# ssh
+alias sshcmp="ssh ubuntu@cmp-local"
+alias sshcur="ssh falcon@curata-local"
+
+# curata
+alias hivestart=./hiveproject/manage.py runserver 0.0.0.0:8000
+
+# docker
+#alias dockerclean="docker rmi $(docker images | grep '^<none>' | awk '{print $3}')"
+
+# vpn
+alias govpn="sudo openvpn ~/.ssh/client.ovpn"
+

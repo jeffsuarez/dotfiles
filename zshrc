@@ -1,142 +1,100 @@
-# modify the prompt to contain git branch name if applicable
-setopt promptsubst
-autoload -U promptinit
-promptinit
-prompt hrw
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# completion
-autoload -U compinit
-compinit
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-# load custom executable functions
-for function in ~/.zsh/functions/*; do
-  source $function
-done
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="agnoster"
 
-# makes color constants available
-autoload -U colors
-colors
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# enable colored output from ls, etc
-export CLICOLOR=1
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# history settings
-setopt hist_ignore_all_dups inc_append_history
-HISTFILE=~/.zhistory
-HISTSIZE=4096
-SAVEHIST=4096
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-# awesome cd movements from zshkit
-setopt autocd autopushd pushdminus pushdsilent pushdtohome cdablevars
-DIRSTACKSIZE=5
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-# Enable extended globbing
-setopt extendedglob
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-# Allow [ or ] whereever you want
-unsetopt nomatch
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# vi mode
-bindkey -v
-bindkey "^F" vi-cmd-mode
-bindkey jj vi-cmd-mode
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-# handy keybindings
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-bindkey "^R" history-incremental-search-backward
-bindkey "^P" history-search-backward
-bindkey "^Y" accept-and-hold
-bindkey "^N" insert-last-word
-bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-# aliases
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git sublime terminator git-prompt)
+
+source $ZSH/oh-my-zsh.sh
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-# extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
-# these are loaded first, second, and third, respectively.
-_load_settings() {
-  _dir="$1"
-  if [ -d "$_dir" ]; then
-    if [ -d "$_dir/pre" ]; then
-      for config in "$_dir"/pre/**/*(N-.); do
-        . $config
-      done
-    fi
+source /usr/local/bin/virtualenvwrapper.sh
 
-    for config in "$_dir"/**/*(N-.); do
-      case "$config" in
-        "$_dir"/pre/*)
-          :
-          ;;
-        "$_dir"/post/*)
-          :
-          ;;
-        *)
-          if [ -f $config ]; then
-            . $config
-          fi
-          ;;
-      esac
-    done
+SSH_ENV="$HOME/.ssh/environment"
 
-    if [ -d "$_dir/post" ]; then
-      for config in "$_dir"/post/**/*(N-.); do
-        . $config
-      done
-    fi
-  fi
+function start_agent {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
 }
-_load_settings "$HOME/.zsh/configs"
 
-# Local config
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+# Source SSH settings, if applicable
 
-
-# new path
-export PATH="./bin:/usr/local/bin:$HOME/.rvm/bin:$PATH"
-# cucumber
-export CUCUMBER_FORMAT=fuubar
-# Add RVM to PATH for scripting
-PATH=$PATH
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then
-  source $HOME/.rvm/scripts/rvm ;
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    #ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
 fi
-export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
-# set bell to silent
-set bell-style visible
+# aliases
+if [ -e "$HOME/.aliases" ]; then
+  source "$HOME/.aliases"
+fi
 
-# completion
-autoload -U compinit
-compinit
-
-# automatically enter directories without cd
-setopt auto_cd
-
-# look for ey config in project dirs
-export EYRC=./.eyrc
-export CLICOLOR=cons25
-
-ctags=/usr/local/bin/ctags
-
-# automatically pushd
-setopt auto_pushd
-export dirstacksize=5
-
-# awesome cd movements from zshkit
-setopt AUTOCD
-setopt AUTOPUSHD PUSHDMINUS PUSHDSILENT PUSHDTOHOME
-setopt cdablevars
-
-# Try to correct command line spelling
-setopt CORRECT CORRECT_ALL
-
-# don't auto correct
-alias heroku='nocorrect heroku'
-
-# Enable extended globbing
-setopt EXTENDED_GLOB
-
-# matches case insensitive for lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# direnv
+eval "$(direnv hook zsh)"

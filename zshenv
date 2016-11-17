@@ -1,20 +1,13 @@
-fpath=($fpath $HOME/.zsh/func ~/.zsh/completion)
-typeset -U fpath
-
 # use subl as the visual editor
 export VISUAL=subl
 export EDITOR=$VISUAL
 
 # ensure dotfiles bin directory is loaded first
-export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:/usr/local/sbin:$PATH"
 
-# load rbenv if available
-if which rbenv &>/dev/null ; then
-  eval "$(rbenv init - --no-rehash)"
-fi
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-# mkdir .git/safe in the root of repositories you trust
-export PATH=".git/safe/../../bin:$PATH"
+# ssh
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
-# Local config
-[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
