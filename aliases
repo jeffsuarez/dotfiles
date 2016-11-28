@@ -36,5 +36,5 @@ alias hivestart=./hiveproject/manage.py runserver 0.0.0.0:8000
 #alias dockerclean="docker rmi $(docker images | grep '^<none>' | awk '{print $3}')"
 
 # vpn
-alias govpn="sudo openvpn ~/.ssh/client.ovpn"
+alias govpn="sudo openvpn ~/.ssh/client.ovpn --auth-retry interact"
 
